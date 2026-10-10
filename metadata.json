@@ -1,0 +1,6 @@
+{
+  "name": "Ruletas Aleatorias - Multi-Raffle Studio",
+  "description": "Crea y sortea múltiples ruletas aleatorias al mismo tiempo con listas personalizadas, efectos visuales y control de ganadores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
