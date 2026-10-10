@@ -62,8 +62,24 @@ export default function App() {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Reset spinning status on load
-          return parsed.map((w) => ({ ...w, isSpinning: false }));
+          // Reset spinning status on load and validate items structure
+          return parsed.map((w: any, idx: number) => ({
+            id: w?.id || `wheel_${idx}_${Date.now()}`,
+            title: w?.title || `Ruleta ${idx + 1}`,
+            items: Array.isArray(w?.items)
+              ? w.items.map((it: any, itemIdx: number) => ({
+                  id: it?.id || `item_${itemIdx}`,
+                  text: it?.text ?? `Opción ${itemIdx + 1}`,
+                  color: it?.color ?? '#3b82f6',
+                  weight: typeof it?.weight === 'number' ? it.weight : 1,
+                  enabled: it?.enabled !== false,
+                }))
+              : [],
+            currentAngle: typeof w?.currentAngle === 'number' ? w.currentAngle : 0,
+            isSpinning: false,
+            winnerHistory: Array.isArray(w?.winnerHistory) ? w.winnerHistory : [],
+            theme: w?.theme || 'modern',
+          }));
         }
       }
     } catch {

@@ -3,8 +3,14 @@ class SoundEffectsManager {
   private isMuted: boolean = false;
 
   constructor() {
-    const savedMute = localStorage.getItem('multi_wheel_sound_muted');
-    this.isMuted = savedMute === 'true';
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const savedMute = localStorage.getItem('multi_wheel_sound_muted');
+        this.isMuted = savedMute === 'true';
+      }
+    } catch {
+      this.isMuted = false;
+    }
   }
 
   private initContext() {
@@ -25,7 +31,11 @@ class SoundEffectsManager {
 
   public setMuted(muted: boolean): void {
     this.isMuted = muted;
-    localStorage.setItem('multi_wheel_sound_muted', String(muted));
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('multi_wheel_sound_muted', String(muted));
+      }
+    } catch {}
   }
 
   public toggleMute(): boolean {

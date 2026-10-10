@@ -29,7 +29,7 @@ export const RouletteCanvas: React.FC<RouletteCanvasProps> = ({
   const [flapperAngle, setFlapperAngle] = useState<number>(0);
 
   // Filter only enabled items
-  const activeItems = items.filter((item) => item.enabled);
+  const activeItems = (items || []).filter((item) => item && item.enabled);
 
   // Calculate slice angles based on weights
   const totalWeight = activeItems.reduce((acc, item) => acc + (item.weight || 1), 0) || 1;

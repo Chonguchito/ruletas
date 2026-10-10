@@ -47,7 +47,8 @@ export const WheelCard: React.FC<WheelCardProps> = ({
   const [tempTitle, setTempTitle] = useState(wheel.title);
   const [showOptionsMenu, setShowOptionsMenu] = useState(false);
 
-  const activeItemsCount = wheel.items.filter((i) => i.enabled).length;
+  const wheelItems = wheel?.items || [];
+  const activeItemsCount = wheelItems.filter((i) => i && i.enabled).length;
 
   const handleAddItem = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
